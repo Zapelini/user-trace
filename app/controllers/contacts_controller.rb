@@ -1,5 +1,6 @@
 class ContactsController < ApplicationController
-  before_action :set_contact, only: [:show, :edit, :update, :destroy]
+  before_action :set_contact, only: [:show, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /contacts
   # GET /contacts.json
@@ -15,10 +16,6 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
-  end
-
-  # GET /contacts/1/edit
-  def edit
   end
 
   # POST /contacts
