@@ -21,15 +21,24 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new(contact_params)
-
+    @contact = Contact.find_by_email(contact_params[:email])
+ 
     respond_to do |format|
-      if @contact.save
-        format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
-        format.json { render :show, status: :created, location: @contact }
+      # TODO create db transaction https://stackoverflow.com/questions/2292815/save-an-active-records-array
+      if !@contact.nil? and @contact.valid?
+        save_contacttrace(@contact)
+        format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+        format.json { render :show, status: :ok, location: @contact }      
       else
-        format.html { render :new }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
+        @contact = Contact.new(contact_params)
+        if @contact.save
+          save_contacttrace(@contact)
+          format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+          format.json { render :show, status: :created, location: @contact }
+        else
+          format.html { render :new }
+          format.json { render json: @contact.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -67,5 +76,21 @@ class ContactsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
       params.require(:contact).permit(:email, :contacttrace)
+    end
+    def contacttrace_params
+      params.require(:contacttrace).permit(contacttraces: [:url, :date_access])
+    end
+
+    def save_contacttrace(contact)
+      params[:contacttrace].each do |item|
+         cc = ContactTrace.new
+         cc.url = item['url']
+         cc.date_access = item['date_access']
+         cc.contact = contact
+        if !cc.save
+          format.html { render :new }
+          format.json { render json: cc.errors, status: :unprocessable_entity }
+        end
+      end
     end
 end

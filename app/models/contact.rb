@@ -9,5 +9,5 @@ end
 
 
 class ContactTrace < ApplicationRecord
-  belongs_to :contact, class_name: "Contact"
+  belongs_to :contact
 end

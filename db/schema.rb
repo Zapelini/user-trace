@@ -15,10 +15,10 @@ ActiveRecord::Schema.define(version: 20170711015932) do
   create_table "contact_traces", force: :cascade do |t|
     t.string "url"
     t.datetime "date_access"
-    t.integer "contacts_id"
+    t.integer "contact_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["contacts_id"], name: "index_contact_traces_on_contacts_id"
+    t.index ["contact_id"], name: "index_contact_traces_on_contact_id"
   end
 
   create_table "contacts", force: :cascade do |t|
