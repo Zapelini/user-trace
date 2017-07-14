@@ -1,24 +1,45 @@
-# README
+# Contact Trace
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Development challenge of an application, using an api rest to store browsing history of websites.
 
-Things you may want to cover:
+## Pre-requisites
 
-* Ruby version
+* Ruby 2.4.0
+* Rails 5.1.2
+* SQlite or Postgresql
+* Make
 
-* System dependencies
+Using Makefile to describe the possible tasks used in development.
 
-* Configuration
+## Setup 
 
-* Database creation
+Clone the repository in a local folder.
+```bash
+$ git clone https://github.com/Zapelini/user_trace.git
+$ cd user_trace_py
+$ bundle install --without production
+```
 
-* Database initialization
+## Database
 
-* How to run the test suite
+#### Create database
+```bash
+$ make db_create
+```
+#### Migrate database
+```bash
+$ make db_migrate:
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+## Running test
 
-* Deployment instructions
+```bash
+make test_unit
+```
 
-* ...
+## Running app
+
+```bash
+make dev_run
+```
+Access your browser at http://localhost:3000.
