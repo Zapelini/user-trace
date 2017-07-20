@@ -22,10 +22,6 @@ class ContactsControllerTest < ActionDispatch::IntegrationTest
                                     {url: "home", date_access: "2017-07-11 06:31:13.599095"},
 		                                {url: "preco", date_access: "2017-07-11 06:32:14.599095"}
                                   ]}
-    
-    #@contact = Contact.find_by_email(email="jucabala@fulano.com")
-    #@contacttrace = ContactTrace.find_by(contact_id: @contact.id)
-    #assert_equal(2, @contacttrace.length)    
     end
 
     assert_redirected_to contact_url(Contact.last)
@@ -36,21 +32,4 @@ class ContactsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  #test "should get edit" do
-  #  get edit_contact_url(@contact)
-  #  assert_response :success
-  #end
-
-  #test "should update contact" do
-  #  patch contact_url(@contact), params: { contact: { email: "jucabala@fulano.com" } }
-  #  assert_redirected_to contact_url(@contact)
-  #end
-
-  test "should destroy contact" do
-    assert_difference('Contact.count', -1) do
-      delete contact_url(@contact)
-    end
-
-    assert_redirected_to contacts_url
-  end
 end
